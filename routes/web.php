@@ -1,5 +1,7 @@
 <?php
 
+/** @var \Laravel\Lumen\Routing\Router $router */
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -11,4 +13,6 @@
 |
 */
 
-$app->get('/', ListingController::class);
+$router->get('/', function () use ($router) {
+    return $router->app->version();
+});
