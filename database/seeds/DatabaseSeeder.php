@@ -13,12 +13,12 @@ class DatabaseSeeder extends Seeder
     {
         DB::table('movies')->insert([
             'name' => 'Transformers',
-            'type' => 'Comedy',
+            'category' => 'Comedy',
         ]);
 
         DB::table('movies')->insert([
             'name' => 'Knives out',
-            'type' => 'Mystery/Crime',
+            'category' => 'Mystery/Crime',
         ]);
     }
 }
