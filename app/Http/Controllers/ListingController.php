@@ -4,23 +4,30 @@ namespace App\Http\Controllers;
 
 use App\Models\Movies;
 use App\Transformers\MoviesToDto;
-use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
+use DateTime;
 
-class ListingController extends Controller
-{
+class ListingController extends Controller {
     private $movieRepository;
 
-    public function __construct(Movies $movieRepository)
-    {
+    public function __construct(Movies $movieRepository) {
         $this->movieRepository = $movieRepository;
     }
 
-    public function __invoke()
-    {
-        return new JsonResponse([
-            'status' => 'success',
-            'collection' => $this->movieRepository->all()->map([MoviesToDto::class, 'provideTransformer']),
-        ]);
+    /**
+     * Return main view with movies
+     */
+    public function index() {
+        $movies = $this->movieRepository->all()->map([MoviesToDto::class, 'provideTransformer']);
+        return json_decode($movies);
+    }
+
+    /**
+     * Return timestamp object
+     */
+    public function timestamp() {
+        $date = new DateTime();
+        $timestamp = $date->getTimestamp();
+        $dateFormatted = ['type' => $timestamp];
+        return $dateFormatted;
     }
 }
